@@ -73,7 +73,7 @@ works, use the ascii charset 0 as fallback. Not the nicest for everything but wo
 2 = Piezo connected to a pin over I2C
 */
 #ifndef BEEPER_TYPE
-#define BEEPER_TYPE 1
+#define BEEPER_TYPE 0
 #define BEEPER_TYPE_INVERTING false
 #endif
 
@@ -98,7 +98,7 @@ What display type do you use?
                If you have Sanguino and want to use the library, you need to have Arduino 023 or older. (13.04.2012)
 5 = U8G supported display
 */
-#define UI_DISPLAY_TYPE 0
+#define UI_DISPLAY_TYPE 1
 
 #if UI_DISPLAY_TYPE == 5 // Special case for graphic displays
 
@@ -137,21 +137,21 @@ Rows of your display. 2 or 4
 0 : PCF8574 or PCF8574A or compatible chips.
 1 : MCP23017
 */
-#define UI_DISPLAY_I2C_CHIPTYPE 0
+//#define UI_DISPLAY_I2C_CHIPTYPE 0
 // 0x40 till 0x4e for PCF8574, 0x40 for the adafruid RGB shield, 0x40 - 0x4e for MCP23017
 // Official addresses have a value half as high!
-#define UI_DISPLAY_I2C_ADDRESS 0x4e
+//#define UI_DISPLAY_I2C_ADDRESS 0x4e
 // For MCP 23017 define which pins should be output
-#define UI_DISPLAY_I2C_OUTPUT_PINS 65504
+//#define UI_DISPLAY_I2C_OUTPUT_PINS 65504
 // Set the output mask that is or'd over the output data. This is needed to activate
 // a backlight switched over the I2C.
 // The adafruit RGB shields enables a light if the bit is not set. Bits 6-8 are used for backlight.
-#define UI_DISPLAY_I2C_OUTPUT_START_MASK 0
+//#define UI_DISPLAY_I2C_OUTPUT_START_MASK 0
 // For MCP which inputs are with pullup. 31 = pins 0-4 for adafruid rgb shield buttons
-#define UI_DISPLAY_I2C_PULLUP 31
+//#define UI_DISPLAY_I2C_PULLUP 31
 /* How fast should the I2C clock go. The PCF8574 work only with the lowest setting 100000.
 A MCP23017 can run also with 400000 Hz */
-#define UI_I2C_CLOCKSPEED 100000L
+//#define UI_I2C_CLOCKSPEED 100000L
 /**
 Define the pin
 */
@@ -191,15 +191,15 @@ Define the pin
 #define UI_DISPLAY_D7_PIN _BV(9)*/
 
 #else // Direct display connections
-#define UI_DISPLAY_RS_PIN		63		// PINK.1, 88, D_RS
+#define UI_DISPLAY_RS_PIN		59		// PINK.1, 88, D_RS
 #define UI_DISPLAY_RW_PIN		-1
-#define UI_DISPLAY_ENABLE_PIN	        65		// PINK.3, 86, D_E
-#define UI_DISPLAY_D0_PIN		59		// PINF.5, 92, D_D4
-#define UI_DISPLAY_D1_PIN		64		// PINK.2, 87, D_D5
+#define UI_DISPLAY_ENABLE_PIN	        63		// PINK.3, 86, D_E
+#define UI_DISPLAY_D0_PIN		64		// PINF.5, 92, D_D4
+#define UI_DISPLAY_D1_PIN		40		// PINK.2, 87, D_D5
 #define UI_DISPLAY_D2_PIN		44		// PINL.5, 40, D_D6
 #define UI_DISPLAY_D3_PIN		66		// PINK.4, 85, D_D7
-#define UI_DISPLAY_D4_PIN		59		// PINF.5, 92, D_D4
-#define UI_DISPLAY_D5_PIN		64		// PINK.2, 87, D_D5
+#define UI_DISPLAY_D4_PIN		64		// PINF.5, 92, D_D4
+#define UI_DISPLAY_D5_PIN		40		// PINK.2, 87, D_D5
 #define UI_DISPLAY_D6_PIN		44		// PINL.5, 40, D_D6
 #define UI_DISPLAY_D7_PIN		66		// PINK.4, 85, D_D7
 #define UI_DELAYPERCHAR		   320
@@ -220,7 +220,7 @@ Define the pin
 If you have menus enabled, you need a method to leave it. If you have a back key, you can always go one level higher.
 Without a back key, you need to navigate to the back entry in the menu. Setting this value to 1 removes the back entry.
 */
-#define UI_HAS_BACK_KEY 1
+#define UI_HAS_BACK_KEY 0
 
 /* Then you have the next/previous keys more like up/down keys, it may be more intuitive to change the direction you skip through the menus.
 If you set it to true, next will go to previous menu instead of the next menu.

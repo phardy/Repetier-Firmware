@@ -1189,7 +1189,7 @@ The following settings override uiconfig.h!
 14 = OpenHardware.co.za LCD2004 V2014
 15 = Sanguinololu + Panelolu2
 */
-#define FEATURE_CONTROLLER 0
+#define FEATURE_CONTROLLER 1
 
 /**
 Select the language to use.
