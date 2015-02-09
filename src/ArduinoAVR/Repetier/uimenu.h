@@ -25,6 +25,8 @@
 #define cTEMP "\005"
 #define cFOLD "\006"
 #define cARROW "\176"
+#define cDARROW "\007"
+
 /*
 The menu configuration uses dynamic strings. These dynamic strings can contain
 a placeholder for special values. During print these placeholder are exchanged
@@ -180,111 +182,85 @@ UI_PAGE2(name,row1,row2);
 for 2 row displays. You can add additional pages or change the default pages like you want.
 */
 
-#if UI_ROWS>=6 && UI_DISPLAY_TYPE == 5
+UI_PAGE4(status,
+         cDARROW "Pos.|" cTEMP "%ec/%Ec" cDEG,
+         "%y0|%y1|%y2",
+         "T:%Ut|F:%Uf|",
+         "%os");
+#define UI_PAGES {&status}
+#define UI_NUM_PAGES 1
 
- //graphic main status
-
-   UI_PAGE6(ui_page1,"\xa %e0/%E0\xb0 X:%x0",
-   #if NUM_EXTRUDER>1
-     "\xa %e1/%E1\xb0 Y:%x1",
-  #else
-     "             Y:%x1",
-   #endif
-   #if HAVE_HEATED_BED==true
-     "\xe %eb/%Eb\xb0 Z:%x2",
-   #else
-     "Fan %Fs%%%     Z:%x2",
-   #endif
-   "Mul:%om", "Buf:%oB", "%os");
-
-  #if EEPROM_MODE!=0
-    UI_PAGE4(ui_page2,UI_TEXT_PRINT_TIME,"%Ut",UI_TEXT_PRINT_FILAMENT,"%Uf m");
-    #define UI_PRINTTIME_PAGES ,&ui_page2
-    #define UI_PRINTTIME_COUNT 1
-  #else
-    #define UI_PRINTTIME_PAGES
-    #define UI_PRINTTIME_COUNT 0
-  #endif
-  /*
-  Merge pages together. Use the following pattern:
-  #define UI_PAGES {&name1,&name2,&name3}
-  */
-  #define UI_PAGES {&ui_page1 UI_PRINTTIME_PAGES}
-  // How many pages do you want to have. Minimum is 1.
-  #define UI_NUM_PAGES 1+UI_PRINTTIME_COUNT
-
-#elif UI_ROWS>=4
- #if HAVE_HEATED_BED==true
- #if NUM_EXTRUDER>0
-   UI_PAGE4(ui_page1,cTEMP "%ec/%Ec" cDEG "B%eB/%Eb" cDEG,"Z:%x2     Buf:%oB","Mul: %om   Flow: %of","%os");
-#else
-   UI_PAGE4(ui_page1,"B%eB/%Eb" cDEG,"Z:%x2     Buf:%oB","Mul: %om   Flow: %of","%os");
-#endif
-   //UI_PAGE4(ui_page1,UI_TEXT_PAGE_EXTRUDER,UI_TEXT_PAGE_BED,UI_TEXT_PAGE_BUFFER,"%os");
- #else
- #if NUM_EXTRUDER>0
-   UI_PAGE4(ui_page1,UI_TEXT_PAGE_EXTRUDER,"Z:%x2 mm",UI_TEXT_PAGE_BUFFER,"%os");
-   #else
-   UI_PAGE4(ui_page1,"","Z:%x2 mm",UI_TEXT_PAGE_BUFFER,"%os");
-   #endif
- #endif
-  UI_PAGE4(ui_page2,"X:%x0 mm","Y:%x1 mm","Z:%x2 mm","%os");
-//UI_PAGE4(ui_page2,"dX:%y0 mm %sX","dY:%y1 mm %sY","dZ:%y2 mm %sZ","%os");
- #if NUM_EXTRUDER>0
-    UI_PAGE4(ui_page3,UI_TEXT_PAGE_EXTRUDER1
- #else
-    UI_PAGE4(ui_page3
- #endif
- #if NUM_EXTRUDER>1
-   ,UI_TEXT_PAGE_EXTRUDER2
- #endif
- #if NUM_EXTRUDER>2
-  ,UI_TEXT_PAGE_EXTRUDER3
- #endif
- #if HAVE_HEATED_BED==true
-   ,UI_TEXT_PAGE_BED
- #endif
- #if (NUM_EXTRUDER==3 && HAVE_HEATED_BED!=true) || (NUM_EXTRUDER==2 && HAVE_HEATED_BED==true)
-   ,"%os"
- #elif NUM_EXTRUDER==2 || (NUM_EXTRUDER==1 && HAVE_HEATED_BED==true)
-   ,"","%os"
- #elif NUM_EXTRUDER==1 || (NUM_EXTRUDER==0 &&  HAVE_HEATED_BED==true)
-   ,"","","%os"
- #elif NUM_EXTRUDER==0
-   ,"","","","%os"
- #endif
- );
- #if EEPROM_MODE!=0
-  UI_PAGE4(ui_page4,UI_TEXT_PRINT_TIME,"%Ut",UI_TEXT_PRINT_FILAMENT,"%Uf m");
-  #define UI_PRINTTIME_PAGES ,&ui_page4
-  #define UI_PRINTTIME_COUNT 1
- #else
-  #define UI_PRINTTIME_PAGES
-  #define UI_PRINTTIME_COUNT 0
- #endif
-/*
-Merge pages together. Use the following pattern:
-#define UI_PAGES {&name1,&name2,&name3}
-*/
- #define UI_PAGES {&ui_page1,&ui_page2,&ui_page3 UI_PRINTTIME_PAGES}
-// How many pages do you want to have. Minimum is 1.
- #define UI_NUM_PAGES 3+UI_PRINTTIME_COUNT
-#else
-#if HAVE_HEATED_BED==true
-UI_PAGE2(ui_page1,UI_TEXT_PAGE_EXTRUDER,UI_TEXT_PAGE_BED);
-#else
-UI_PAGE2(ui_page1,UI_TEXT_PAGE_EXTRUDER,"%os");
-#endif
-UI_PAGE2(ui_page2,"X:%x0 Y:%x1","%os");
-UI_PAGE2(ui_page3,"Z:%x2 mm","%os");
-/*
-Merge pages together. Use the following pattern:
-#define UI_PAGES {&name1,&name2,&name3}
-*/
-#define UI_PAGES {&ui_page1,&ui_page2,&ui_page3}
-// How many pages do you want to have. Minimum is 1.
-#define UI_NUM_PAGES 3
-#endif
+/* #if UI_ROWS>=4 */
+/*  #if HAVE_HEATED_BED==true */
+/*   #if NUM_EXTRUDER>0 */
+/*    UI_PAGE4(ui_page1,cTEMP "%ec/%Ec" cDEG "B%eB/%Eb" cDEG,"Z:%x2     Buf:%oB","Mul: %om   Flow: %of","%os"); */
+/*   #else */
+/*    UI_PAGE4(ui_page1,"B%eB/%Eb" cDEG,"Z:%x2     Buf:%oB","Mul: %om   Flow: %of","%os"); */
+/*   #endif */
+/*    //UI_PAGE4(ui_page1,UI_TEXT_PAGE_EXTRUDER,UI_TEXT_PAGE_BED,UI_TEXT_PAGE_BUFFER,"%os"); */
+/*  #else */
+/*   #if NUM_EXTRUDER>0 */
+/*    UI_PAGE4(ui_page1,UI_TEXT_PAGE_EXTRUDER,"Z:%x2 mm",UI_TEXT_PAGE_BUFFER,"%os"); */
+/*   #else */
+/*    UI_PAGE4(ui_page1,"","Z:%x2 mm",UI_TEXT_PAGE_BUFFER,"%os"); */
+/*   #endif */
+/*  #endif */
+/*   UI_PAGE4(ui_page2,"X:%x0 mm","Y:%x1 mm","Z:%x2 mm","%os"); */
+/*  #if NUM_EXTRUDER>0 */
+/*     UI_PAGE4(ui_page3,UI_TEXT_PAGE_EXTRUDER1 */
+/*  #else */
+/*     UI_PAGE4(ui_page3 */
+/*  #endif */
+/*  #if NUM_EXTRUDER>1 */
+/*    ,UI_TEXT_PAGE_EXTRUDER2 */
+/*  #endif */
+/*  #if NUM_EXTRUDER>2 */
+/*   ,UI_TEXT_PAGE_EXTRUDER3 */
+/*  #endif */
+/*  #if HAVE_HEATED_BED==true */
+/*    ,UI_TEXT_PAGE_BED */
+/*  #endif */
+/*  #if (NUM_EXTRUDER==3 && HAVE_HEATED_BED!=true) || (NUM_EXTRUDER==2 && HAVE_HEATED_BED==true) */
+/*    ,"%os" */
+/*  #elif NUM_EXTRUDER==2 || (NUM_EXTRUDER==1 && HAVE_HEATED_BED==true) */
+/*    ,"","%os" */
+/*  #elif NUM_EXTRUDER==1 || (NUM_EXTRUDER==0 &&  HAVE_HEATED_BED==true) */
+/*    ,"","","%os" */
+/*  #elif NUM_EXTRUDER==0 */
+/*    ,"","","","%os" */
+/*  #endif */
+/*  ); */
+/*  #if EEPROM_MODE!=0 */
+/*   UI_PAGE4(ui_page4,UI_TEXT_PRINT_TIME,"%Ut",UI_TEXT_PRINT_FILAMENT,"%Uf m"); */
+/*   #define UI_PRINTTIME_PAGES ,&ui_page4 */
+/*   #define UI_PRINTTIME_COUNT 1 */
+/*  #else */
+/*   #define UI_PRINTTIME_PAGES */
+/*   #define UI_PRINTTIME_COUNT 0 */
+/*  #endif */
+/* /\* */
+/* Merge pages together. Use the following pattern: */
+/* #define UI_PAGES {&name1,&name2,&name3} */
+/* *\/ */
+/*  #define UI_PAGES {&ui_page1,&ui_page2,&ui_page3 UI_PRINTTIME_PAGES} */
+/* // How many pages do you want to have. Minimum is 1. */
+/*  #define UI_NUM_PAGES 3+UI_PRINTTIME_COUNT */
+/* #else */
+/* #if HAVE_HEATED_BED==true */
+/* UI_PAGE2(ui_page1,UI_TEXT_PAGE_EXTRUDER,UI_TEXT_PAGE_BED); */
+/* #else */
+/* UI_PAGE2(ui_page1,UI_TEXT_PAGE_EXTRUDER,"%os"); */
+/* #endif */
+/* UI_PAGE2(ui_page2,"X:%x0 Y:%x1","%os"); */
+/* UI_PAGE2(ui_page3,"Z:%x2 mm","%os"); */
+/* /\* */
+/* Merge pages together. Use the following pattern: */
+/* #define UI_PAGES {&name1,&name2,&name3} */
+/* *\/ */
+/* #define UI_PAGES {&ui_page1,&ui_page2,&ui_page3} */
+/* // How many pages do you want to have. Minimum is 1. */
+/* #define UI_NUM_PAGES 3 */
+/* #endif */
 /* ============ MENU definition ================
 
 The menu works the same as pages. In addion you need to define what the lines do

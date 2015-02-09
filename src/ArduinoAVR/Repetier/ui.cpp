@@ -198,6 +198,17 @@ const uint8_t character_folder[8] PROGMEM = {0,28,31,17,17,31,0,0};
 // *...* 17
 const byte character_ready[8] PROGMEM = {17,10,4,17,4,10,17,17};
 
+// left-down arrow - code 7
+// ..... 0
+// ..... 0
+// ..*** 7
+// ..*.. 4
+// ..*.. 4
+// ***** 31
+// .***. 14
+// ..*.. 4
+const byte character_leftdown[8] PROGMEM = {0,0,7,4,4,31,14,4};
+
 const long baudrates[] PROGMEM = {9600,14400,19200,28800,38400,56000,57600,76800,111112,115200,128000,230400,250000,256000,
                                   460800,500000,921600,1000000,1500000,0
                                  };
@@ -364,7 +375,7 @@ void initializeLCD()
     uid.createChar(4,character_unselected);
     uid.createChar(5,character_temperature);
     uid.createChar(6,character_folder);
-    uid.createChar(7,character_ready);
+    uid.createChar(7,character_leftdown);
     lcdStopWrite();
 }
 #endif
@@ -529,7 +540,7 @@ void initializeLCD()
     uid.createChar(4,character_unselected);
     uid.createChar(5,character_temperature);
     uid.createChar(6,character_folder);
-    uid.createChar(7,character_ready);
+    uid.createChar(7,character_leftdown);
 }
 // ----------- end direct LCD driver
 #endif

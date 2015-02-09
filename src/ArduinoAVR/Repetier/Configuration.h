@@ -988,9 +988,9 @@ to activate the quadratic term. Only adds lots of computations and storage usage
 
  Overridden if EEPROM activated.
 */
-#define BAUDRATE 76800
+//#define BAUDRATE 76800
 //#define BAUDRATE 115200
-//#define BAUDRATE 250000
+#define BAUDRATE 250000
 
 /**
 Some boards like Gen7 have a power on pin, to enable the atx power supply. If this is defined,
@@ -1206,8 +1206,8 @@ Select the language to use.
 #define UI_LANGUAGE 0
 
 // This is line 2 of the status display at startup. Change to your like.
-#define UI_PRINTER_NAME "Ordbot"
-#define UI_PRINTER_COMPANY "RepRapDiscount"
+#define UI_PRINTER_NAME "Chunk"
+#define UI_PRINTER_COMPANY "Kids, Incorporated."
 
 
 /** Animate switches between menus etc. */
